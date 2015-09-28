@@ -1,0 +1,8 @@
+<h1>Hello Express  :|</h1>
+{{#if user}}
+    <p> Hello {{ user.username }}</p>
+    <p><a href="/logout">Logout</a></p>
+  {{else}}
+    <a class="btn btn-default" href="/login"> Login</a>
+    <a class="btn btn-default" href="/register">Register</a>
+{{/if}}
