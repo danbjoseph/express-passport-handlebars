@@ -1,2 +1,2 @@
 - A basic Node.js application which is using Passport as the authentication middleware for authenticating against a locally configured Mongo backend.
-- The server assumes that you have a local mongo instance running.
+- The server assumes that you have a local mongo instance and a local postgres db running.
