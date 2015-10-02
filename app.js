@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var localConfig = require('./config');
+var settings = require('./settings/settings');
 
 var routes = require('./routes/index');
 
@@ -45,7 +45,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-mongoose.connect('mongodb://localhost/'+localConfig.db);
+mongoose.connect('mongodb://localhost/'+settings.db);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

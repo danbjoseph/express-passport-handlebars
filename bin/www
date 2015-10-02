@@ -8,13 +8,13 @@ var app = require('../app');
 var debug = require('debug')('etl-viz:server');
 var http = require('http');
 
-var localConfig = require('../config');
+var settings = require('../settings/settings');
 
 /**
- * Get port from config file and store in Express.
+ * Get port from settings file and store in Express.
  */
 
-var port = localConfig.port;
+var port = settings.application.port;
 app.set('port', port);
 
 /**

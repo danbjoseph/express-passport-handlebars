@@ -2,18 +2,22 @@ var express = require('express');
 var passport = require('passport');
 var User = require('../models/users');
 var router = express.Router();
-var localConfig = require('../config');
+var settings = require('../settings/settings');
+
+var reports = require('../settings/reports');
+var PostGresHelper = require("./postGresHelper.js");
+var pghelper = new PostGresHelper();
 
 router.get('/', function (req, res) {
     res.render('index', {
       user : req.user,
-      opts: localConfig
+      opts: settings.siteConfig
     });
 });
 
 router.get('/register', function(req, res) {
     res.render('register', {
-      opts: localConfig
+      opts: settings.siteConfig
     });
 });
 
@@ -38,7 +42,7 @@ router.post('/register', function(req, res, next) {
 router.get('/login', function(req, res) {
     res.render('login', {
       user : req.user,
-      opts: localConfig
+      opts: settings.siteConfig
     });
 });
 
@@ -63,6 +67,15 @@ router.get('/logout', function(req, res, next) {
 
 router.get('/ping', function(req, res){
     res.status(200).send("pong!");
+});
+
+router.get('/tables', function(req, res){
+  pghelper.query(reports.list_all_tables, function(err, data){
+    res.render('tables', {
+      opts: settings.siteConfig,
+      pgdata : data
+    });
+  });
 });
 
 module.exports = router;
