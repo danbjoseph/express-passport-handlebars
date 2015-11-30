@@ -78,4 +78,26 @@ router.get('/tables', function(req, res){
   });
 });
 
+router.get('/shelter', function(req, res){
+  pghelper.query(reports.shelter, function(err, data){
+
+    res.render('shelter', {
+      opts: settings.siteConfig,
+      pgdata : data
+    });
+  });
+});
+
+router.post('/table_columns', function(req, res){
+  var schema = req.body.schema;
+  var table = req.body.table;
+  var queryStr = "SELECT column_name FROM information_schema.columns WHERE table_schema = '" + schema + "' AND table_name   = '" + table + "'";
+  pghelper.query(queryStr, function(err, data){
+    console.log(data);
+    res.send(data);
+  });
+});
+
+
+
 module.exports = router;

@@ -1,7 +1,43 @@
 <div>
 
 {{#each pgdata}}
-<p>{{table_name}}</p>
+<!-- <form action="table_columns" method="post">
+<input type="hidden" name="schema" value="public">
+<input type="hidden" name="table" value="{{table_name}}">
+<button type="submit" class="btn btn-default">{{table_name}}</button>
+</form> -->
+
+<button class="btn btn-default" onclick="getTableColumns('{{table_name}}')">{{table_name}}</button><br>
+
 {{/each}}
 
 </div>
+<script>
+
+function alertColumnNames(data, tableName){
+  var alertText = "The columns in '" + tableName + "' are: \n";
+  for (i = 0; i < data.length; i++){
+    alertText += data[i]['column_name'];
+    alertText += "\n";
+  }
+  console.log(alertText);
+}
+
+function getTableColumns(tableName){
+  $.ajax({
+    type: "POST",
+    url: "/table_columns",
+    data: {
+      schema: "public",
+      table: tableName
+    },
+    success: function(data){
+      alertColumnNames(data, tableName);
+      console.log("yes")
+    }
+  });
+}
+
+
+
+</script>
